@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/site.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
+    <script type='text/javascript' src='../js/script.js'></script>
+</head>
+<body>
+    <div class="container">
+        <hr/>
+        <div class="row text-center">
+            <div class="col-6 col-md-4 ">
+                <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#addShopModal" onclick="clearTextBox();">Добавить магазин</button><br /><br />
+            </div>
+            <div class="col-6 col-md-4">
+                <button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#addConsultantModal" onclick="clearTextBox();">Добавить консультанта</button><br /><br />
+            </div>
+            <div class="col-6 col-md-4">
+                <button type="button" id="btnList" class="btn btn-primary pull-right" data-toggle="modal" data-target="#appointConsultantModal" onclick="clearTextBox();">Назначить консультанта</button><br /><br />
+            </div>
+        </div>
+       
+        <table class="table">
+            <thead class="bg-info">
+            </thead>
+            <tbody class="tbody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="addShopModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Новый  магазин</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="addShopForm" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control " id="ShopName" name="ShopName" placeholder="Название" />
+                            </div>
+                            <label for="ShopName">Название</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="Address" name="Address" placeholder="Адрес" />
+                            </div>
+                            <label for="Address">Адрес</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" id="btnAddShop">Добавить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addConsultantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Новый консультант</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="addConsultantForm" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="Name" name="Name" placeholder="Имя" />
+                            </div>
+                            <label for="Name">Имя</label>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="Surname" name="Surname" placeholder="Фамилия" />
+                            </div>
+                            <label for="Surname">Фамилия</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" id="btnAddConsultant">Добавить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="appointConsultantModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Назначить консультанта</h4>
+                </div>
+                <div class="modal-body">
+                    <select id="shops" class="col-sm-8">
+                    </select>
+                    <label for="shops" class="col-sm-3">Магазин</label>
+                    <hr />
+                    <select id="consultants" class="col-sm-8">
+                    </select>
+                    <label for="consultants" class="col-sm-3">Консультант</label>
+                    <hr />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>    
+                    <button type="button" class="btn btn-primary" id="btnAppoint">Назначить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

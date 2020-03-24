@@ -1,0 +1,16 @@
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\appsettings.Development.json
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\appsettings.json
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\TestAppWebApi.deps.json
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\TestAppWebApi.runtimeconfig.json
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\TestAppWebApi.runtimeconfig.dev.json
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\TestAppWebApi.dll
+D:\TestAppWebApi\TestAppWebApi\bin\Debug\netcoreapp2.2\TestAppWebApi.pdb
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.csprojAssemblyReference.cache
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.RazorAssemblyInfo.cache
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.RazorAssemblyInfo.cs
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.AssemblyInfoInputs.cache
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.AssemblyInfo.cs
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.RazorTargetAssemblyInfo.cache
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.dll
+D:\TestAppWebApi\TestAppWebApi\obj\Debug\netcoreapp2.2\TestAppWebApi.pdb
