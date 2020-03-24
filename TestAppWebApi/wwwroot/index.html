@@ -14,24 +14,27 @@
     <div class="container">
         <hr/>
         <div class="row text-center">
-            <div class="col-6 col-md-4 ">
-                <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#addShopModal" onclick="clearTextBox();">Добавить магазин</button><br /><br />
+            <div className="btn-group-justified">
+                <!--<div class="span4">-->
+                    <div class="col-3 col-md-4 ">
+                        <button type="button" class="btn-sm btn-primary pull-left btn-block" data-toggle="modal" data-target="#addShopModal" onclick="clearTextBox();">Добавить магазин</button><br /><br />
+                    </div>
+                    <div class="col-3 col-md-4">
+                        <button type="button" class="btn-sm btn-primary center-block btn-block" data-toggle="modal" data-target="#addConsultantModal" onclick="clearTextBox();">Добавить консультанта</button><br /><br />
+                    </div>
+                    <div class="col-3 col-md-4">
+                        <button type="button" id="btnList" class="btn-sm btn-primary pull-right btn-block" data-toggle="modal" data-target="#appointConsultantModal" onclick="clearTextBox();">Назначить консультанта</button><br /><br />
+                    </div>
+                <!--</div>-->
             </div>
-            <div class="col-6 col-md-4">
-                <button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#addConsultantModal" onclick="clearTextBox();">Добавить консультанта</button><br /><br />
-            </div>
-            <div class="col-6 col-md-4">
-                <button type="button" id="btnList" class="btn btn-primary pull-right" data-toggle="modal" data-target="#appointConsultantModal" onclick="clearTextBox();">Назначить консультанта</button><br /><br />
-            </div>
+
+            <table class="table">
+                <thead class="bg-info">
+                </thead>
+                <tbody class="tbody">
+                </tbody>
+            </table>
         </div>
-       
-        <table class="table">
-            <thead class="bg-info">
-            </thead>
-            <tbody class="tbody">
-            </tbody>
-        </table>
-    </div>
 
     <div class="modal fade" id="addShopModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -103,11 +106,11 @@
                 <div class="modal-body">
                     <select id="shops" class="col-sm-8">
                     </select>
-                    <label for="shops" class="col-sm-3">Магазин</label>
+                    <label for="shops" class="col-sm-3 small">Магазин</label>
                     <hr />
                     <select id="consultants" class="col-sm-8">
                     </select>
-                    <label for="consultants" class="col-sm-3">Консультант</label>
+                    <label for="consultants" class="col-sm-3 small">Консультант</label>
                     <hr />
                 </div>
                 <div class="modal-footer">
