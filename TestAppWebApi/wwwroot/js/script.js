@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
 
-    // Загружаем список магазинов с назначенными консультантами
+    // Загрузка список магазинов с назначенными консультантами
     getList();
 
     // Вызов модальной формы создания нового магазина 
@@ -28,10 +28,10 @@ $(document).ready(function () {
         errorElement: "em",
         errorPlacement: function (error, element) {
 
-            // Добавляеем "help-block"
+            // Добавление "help-block"
             error.addClass("help-block");
 
-            // Добавляем `has-feedback` класс к родительскому div.form-group
+            // Добавление `has-feedback` класса к родительскому div.form-group
             // для добавления иконок к элементу input
             element.parents(".col-sm-8").addClass("has-feedback");
             error.insertAfter(element);
@@ -53,7 +53,7 @@ $(document).ready(function () {
             $(element).next("span").addClass("glyphicon-ok").removeClass("glyphicon-remove");
         },
 
-        // Если форма добавления магазина валидна, вызываем функцию добавления магазина
+        // Если форма добавления магазина валидна, вызывается функцию добавления магазина
         submitHandler: async function (form) {
             const response = await fetch("api/shops/", {
                 method: "POST",
@@ -85,12 +85,12 @@ $(document).ready(function () {
                     }
 
                     // кастомные ошибки, определенные в контроллере
-                    // добавляем ошибки свойства Name
+                    // добавляет ошибки свойства Name
                     if (errorData["ShopName"]) {
                         addError(errorData["ShopName"]);
                     }
 
-                    // добавляем ошибки свойства Age
+                    // добавляет ошибки свойства Age
                     if (errorData["Address"]) {
                         addError(errorData["Address"]);
                     }
@@ -111,10 +111,10 @@ $(document).ready(function () {
         errorElement: "em",
         errorPlacement: function (error, element) {
 
-            // Добавляем `help-block` класс к элементу error
+            // Добавление `help-block` класса к элементу error
             error.addClass("help-block");
 
-            // Добавляем `has-feedback` класс к родительскому div.form-group
+            // Добавление `has-feedback` класса к родительскому div.form-group
             // для создания иконок для элементов input
             element.parents(".col-sm-8").addClass("has-feedback");
             error.insertAfter(element);
@@ -156,7 +156,7 @@ $(document).ready(function () {
         }
     });
 
-    // Функция назначения кандиата в магазин
+    // Функция назначения кандидата в магазин
     $("#btnAppoint").click(async function appointConsultant() {
 
         const response = await fetch("api/consultants", {
@@ -180,44 +180,44 @@ $(document).ready(function () {
     // При нажатии на кнопку заполняются комбобоксы "Магазин" и "Консультант"
     // в модальной форме "Назначение консультанта"  
     $("#btnList").click(async function getShopsConsultants() {
-        // отправляем запрос и получаем ответ
+        // отправление запроса и получение ответа
         const response = await fetch("api/consultants", {
             method: "GET",
             headers: { "Accept": "application/json" }
         });
 
-        // если запрос прошел нормально
+        // если запрос прошел успешно
         if (response.ok === true) {
 
-            // получаем данные
+            // получение данных
             var listData = await response.json();
             console.log(listData);
             $.each(listData.shops, function (index, value) {
 
-                // заполняем комбобокс "Магазин" названиями магазинов.
+                // заполнение комбобокса "Магазин" названиями магазинов.
                 $("#shops").append('<option value="' + index + '">' + value + '</option>');
             });
 
             $.each(listData.consultants, function (index, value) {
 
-                // заполняем комбобокс "Консультант" фамилиями и именами консультантов.
+                // заполнение комбобокса "Консультант" фамилиями и именами консультантов.
                 $("#consultants").append('<option value="' + index + '">' + value + '</option>');
             });
         }
     });
 });
 
-//Функция загрузка списка магазинов с назначенными консультантами
+//Функция загрузки списка магазинов с назначенными консультантами
 async function getList() {
-    // отправляет запрос и получаем ответ
+    // отправляет запрос и получает ответ
     const response = await fetch("api/shops/", {
         method: "GET",
         headers: { "Accept": "application/json" }
     });
 
-    // если запрос прошел нормально
+    // если запрос прошел успешно
     if (response.ok === true) {
-        // получаем данные
+        // получение данных
         const list = await response.json();
         
         $('.bg-info').html("<tr><th class ='text-center'>#</th>"+
@@ -234,6 +234,7 @@ async function getList() {
     }
 }
 
+// Функция обработки серверной валидации
 function addError(errors) {
     errors.forEach(error => {
         const p = document.createElement("p");
