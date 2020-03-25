@@ -31,7 +31,7 @@ $(document).ready(function () {
             // Добавление "help-block"
             error.addClass("help-block");
 
-            // Добавление `has-feedback` класса к родительскому div.form-group
+            // Добавление `has-feedback` класса к родительскому классу
             // для добавления иконок к элементу input
             element.parents(".col-sm-8").addClass("has-feedback");
             error.insertAfter(element);
@@ -234,7 +234,7 @@ async function getList() {
     }
 }
 
-// Функция обработки серверной валидации
+// Функция обработки клиентоской валидации
 function addError(errors) {
     errors.forEach(error => {
         const p = document.createElement("p");
@@ -264,35 +264,27 @@ function row(shop) {
 
     const fullNameTd = document.createElement("td");
     $.each(shop.fullNames, function (index, value) {
-        if (value === null) {
+        if ((value === null) || (typeof (value) === "undefined")) {
             fullNameTd.append('');
         }
-        else
-            if (typeof (value) === "undefined") {
-                fullNameTd.append('');
-            }
-            else {
-                fullNameDiv = document.createElement("div");
-                fullNameDiv.append(value);
-                fullNameTd.append(fullNameDiv);
-            }
+        else {
+            fullNameDiv = document.createElement("div");
+            fullNameDiv.append(value);
+            fullNameTd.append(fullNameDiv);
+        }
     });
     tr.append(fullNameTd);
       
     const dateHiringTd = document.createElement("td");
     $.each(shop.dates, function (index, value) {
-        if (value === null) {
+        if ((value === null) || (typeof (value) === "undefined")){
             dateHiringTd.append('');
-        }
-        else
-            if (typeof (value) === "undefined") {
-                dateHiringTd.append('');
         }
         else {
             dateHiringDiv = document.createElement("div");
-                var newDate = new Date(value);
-                dateHiringDiv.append(newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear());
-                dateHiringTd.append(dateHiringDiv);
+            var newDate = new Date(value);
+            dateHiringDiv.append(newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear());
+            dateHiringTd.append(dateHiringDiv);
         }
     });
     tr.append(dateHiringTd);
@@ -301,11 +293,17 @@ function row(shop) {
 
 //Функция очистки html элементов
 function clearTextBox() {
-    $('#ShopName').val("");
-    $('#Address').val("");
+    $('#ShopName-error').remove();
+    $('#Address-error').remove();
+    $('#Name-error').remove();
+    $('#inputShopName').find('span').remove();
+    $('#inputAddress').find('span').remove();
+    $('#inputName').find('span').remove();
+    $('#Surname-error').remove();
     $('#Name').val("");
     $('#Surname').val("");
     $('#btnAddShop').show();
+    $('#inputSurname').find('span').remove();
     $('#btnAddConsultant').show();
     $('#btnAppoint').show();
     $('#Name').css('border-color', 'lightgrey');

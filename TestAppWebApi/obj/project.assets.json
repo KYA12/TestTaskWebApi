@@ -12746,11 +12746,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\TestAppWebApi\\TestAppWebApi\\TestAppWebApi.csproj",
+      "projectUniqueName": "D:\\TestTaskWebApiMaster\\TestAppWebApi\\TestAppWebApi.csproj",
       "projectName": "TestAppWebApi",
-      "projectPath": "D:\\TestAppWebApi\\TestAppWebApi\\TestAppWebApi.csproj",
+      "projectPath": "D:\\TestTaskWebApiMaster\\TestAppWebApi\\TestAppWebApi.csproj",
       "packagesPath": "C:\\Users\\kopya\\.nuget\\packages\\",
-      "outputPath": "D:\\TestAppWebApi\\TestAppWebApi\\obj\\",
+      "outputPath": "D:\\TestTaskWebApiMaster\\TestAppWebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

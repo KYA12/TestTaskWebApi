@@ -39,7 +39,6 @@ namespace TestAppWebApi.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult> AddConsultant([FromBody] AddConsultantViewModel model)
         {
