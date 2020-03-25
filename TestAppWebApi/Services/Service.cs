@@ -51,7 +51,7 @@ namespace TestAppWebApi.Services
             }
             catch(Exception ex)
             {
-                logger.LogError($"Error in Service.GetListShops(): {0}", ex.Message);
+                logger.LogError("Error in Service.GetListShops(): {0}", ex.Message);
             }
             return null;
         }
@@ -71,7 +71,7 @@ namespace TestAppWebApi.Services
             }
             catch(Exception ex)
             {
-                logger.LogError($"Error in Service.AddShop(): {0}", ex.Message);
+                logger.LogError("Error in Consultants/AddShop(): {0}", ex.Message);
                 unitOfWork.Rollback();
             }
             return false;
@@ -94,7 +94,7 @@ namespace TestAppWebApi.Services
             }
             catch(Exception ex)
             {
-                logger.LogError($"Error in AddConsultant: {0}", ex.Message);
+                logger.LogError("Error in Consultants/AddConsultant: {0}", ex.Message);
                 unitOfWork.Rollback();
             }
             return false;
@@ -145,7 +145,7 @@ namespace TestAppWebApi.Services
             }
             catch(Exception ex)
             {
-                logger.LogError($"Error in GetAttachConsultant: {0}", ex.Message);
+                logger.LogError("Error in Consultants/GetShopsConsultants: {0}", ex.Message);
             }
             return null;
         }
@@ -162,11 +162,13 @@ namespace TestAppWebApi.Services
                 consultant.DateHiring = DateTime.Now;
                 shop.Consultant.Add(consultant);
                 unitOfWork.Shops.Update(shop);
+                logger.LogInformation("Consultant {0} {1} was appointed to the shop {2} with address {3}", 
+                    consultant.Name, consultant.Surname, shop.ShopName, shop.Address);
                 return await unitOfWork.Complete();
             }
             catch (Exception ex)
             {
-                logger.LogError("Error in AttachConsultant: {0}", ex.Message);
+                logger.LogError("Error in Consultants/AppointConsultant: {0}", ex.Message);
                 unitOfWork.Rollback();
             }
             return false;

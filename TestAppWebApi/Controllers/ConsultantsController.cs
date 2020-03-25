@@ -31,7 +31,7 @@ namespace TestAppWebApi.Controllers
         /// <param name="post">Post model</param>
         /// <returns>A response with new Ok</returns>
         /// <response code="200">Returns Ok</response>
-        /// <response code="201">A response as creation of consultant</response>
+        /// <response code="201">Return response as creation of the consultant</response>
         /// <response code="400">For bad request</response>
         /// <response code="500">If there was an internal server error</response>
         [HttpPost]
@@ -45,21 +45,22 @@ namespace TestAppWebApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                logger.LogInformation("Method Home/AddConsultant() called ");
+                logger.LogInformation("Method consultants/addconsultant called ");
                 return BadRequest(ModelState);
             }
 
             if (await service.AddConsultant(model))
             {
-                logger.LogInformation("Result is Ok()");
+                logger.LogInformation("Result is Ok(200). Added consultant with" +
+                    " name: {0}, surname: {1}", model.Name, model.Surname);
                 return Ok();
             }
-            logger.LogInformation("Result is BadRequest()");
+            logger.LogInformation("Result is Internal Server Error(500)");
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
 
         // GET
-        // api/shops/
+        // api/consultants/
         /// <summary>
         /// Get avaible shops and consultants
         /// </summary>
@@ -74,11 +75,11 @@ namespace TestAppWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult> GetShopsConsultants()
         {
-            logger.LogInformation("Method Home/GetAttachConsultant called ");
+            logger.LogInformation("Method ConsultantsConstroller/GetShopsConsultants is called ");
             var list = await service.GetShopsConsultants();
             if (list != null)
             {
-                logger.LogInformation("Result is Ok()");
+                logger.LogInformation("Result is Ok(200)");
                 return Ok(list);
             }
 
@@ -104,18 +105,19 @@ namespace TestAppWebApi.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult> AppointConsultantToShop([FromBody] AppointConsultantViewModel model)
         {
+            logger.LogInformation("Method Consultants/AppointConsultantToShop() is called ");
             if (!ModelState.IsValid)
             {
-                logger.LogInformation("Method Home/AttachConsultant() is called ");
+                logger.LogInformation("Result is BadRequest(400). Error: {0}", ModelState.Values.ToString());
                 return BadRequest(ModelState);
             }
 
             if (await service.AppointConsultant(model))
             {
-                logger.LogInformation("Result OK()");
+                logger.LogInformation("Result is OK(200)");
                 return Ok();
             }
-            logger.LogInformation("Result BadRequest");
+            logger.LogInformation("Result is Internal Server Error(500)");
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
 
         }

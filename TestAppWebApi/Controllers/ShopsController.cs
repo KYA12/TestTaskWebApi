@@ -42,11 +42,11 @@ namespace TestAppWebApi.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult> GetShops()
         {
-            logger.LogInformation("Method Home/List() called ");
+            logger.LogInformation("Method ShopsController/GetShops is called ");
             var results = await service.GetListShops();
             if (results != null)
             {
-                logger.LogInformation("Returns result Ok(200)");
+                logger.LogInformation("Result is Ok(200)");
                 return Ok(results);
             }
             logger.LogInformation("Returns result NotFound(404)");
@@ -71,26 +71,26 @@ namespace TestAppWebApi.Controllers
         [ProducesResponseType(500)]
         public async Task<ActionResult> AddShop([FromBody] AddShopViewModel model)
         {
-            logger.LogInformation("Method Home/AddShop() called ");
+            logger.LogInformation("Method Home/AddShop is called ");
             
             if (await service.CheckShopName(model.ShopName))
             {
-                ModelState.AddModelError("Name", "Некорректное имя");
+                ModelState.AddModelError("ShopName", "Некорректное название");
             }
 
             if (!ModelState.IsValid)
             {
-                logger.LogInformation("Result is BadRequest");
+                logger.LogInformation("Result is BadRequest(400): {0}", ModelState.Values.ToString());
                 return BadRequest(ModelState);
             }
 
             if (await service.AddShop(model))
             {
-                logger.LogInformation("Result is Ok");
+                logger.LogInformation("Result is Ok(200). Added shop with name: {0} and address: {1}", model.ShopName, model.Address);
                 return Ok(model);
             }
 
-            logger.LogInformation("Result is Error");
+            logger.LogInformation("Result is Internal Server Error(500)");
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
     }
