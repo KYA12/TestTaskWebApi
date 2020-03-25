@@ -15,6 +15,7 @@ using TestAppWebApi.DataAccess.UnitOfWork;
 using TestAppWebApi.Services;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using TestAppWebApi.DataAccess.Repository;
 
 namespace TestAppWebApi
 {
@@ -35,7 +36,8 @@ namespace TestAppWebApi
             
             // Внедрение зависимости UnitOFWork
             services.AddScoped<IUnitOfWork, UnitOfWorkEFCore>();
-            
+            services.AddScoped<IConsultantRepository, ConsultantRepository>();
+            services.AddScoped<IShopRepository, ShopRepository>();
             // Внедрение зависимости Service
             services.AddScoped<IService, Service>();
             

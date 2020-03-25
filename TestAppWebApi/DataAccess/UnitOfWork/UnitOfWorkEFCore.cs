@@ -9,10 +9,14 @@ namespace TestAppWebApi.DataAccess.UnitOfWork
     //Реализация паттерна Unit of Work
     public class UnitOfWorkEFCore : IUnitOfWork
     {
-        private readonly ShopDataBaseContext context = new ShopDataBaseContext();
+        private readonly ShopDataBaseContext context;
         private IConsultantRepository consultantRepository;
         private IShopRepository shopRepository;
 
+        public UnitOfWorkEFCore(ShopDataBaseContext con)
+        {
+            context = con;
+        }
         public IConsultantRepository Consultants
         {
             get

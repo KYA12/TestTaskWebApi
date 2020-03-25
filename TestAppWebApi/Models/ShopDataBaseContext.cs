@@ -8,6 +8,7 @@ namespace TestAppWebApi.Models
     {
         public ShopDataBaseContext()
         {
+
         }
 
         public ShopDataBaseContext(DbContextOptions<ShopDataBaseContext> options)
@@ -18,13 +19,13 @@ namespace TestAppWebApi.Models
         public virtual DbSet<Consultant> Consultant { get; set; }
         public virtual DbSet<Shop> Shop { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-EECPSGC;Database=ShopDataBase;Trusted_Connection=True;Persist Security Info=False;");
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=DESKTOP-EECPSGC;Database=ShopDataBase;Trusted_Connection=True;Persist Security Info=False;");
+        //    }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
