@@ -33,7 +33,7 @@ namespace TestAppWebApi.Services
                        ShopName = shop.ShopName,
                        Address = shop.Address,
                        FullName = consultant == null ? null : string.Join(' ', consultant.Surname, consultant.Name),
-                       DateHiring = consultant.DateHiring.ToString()
+                       DateHiring = consultant == null ? null: consultant.DateHiring.ToString()
                    });
 
                 var shops = await query.ToListAsync();
@@ -49,7 +49,7 @@ namespace TestAppWebApi.Services
                     })).ToList();
                 return results;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError("Error in Service.GetListShops(): {0}", ex.Message);
             }
@@ -130,7 +130,7 @@ namespace TestAppWebApi.Services
                 {
                     shops.Add(shop.ShopId, shop.ShopName);
                 }
-
+                
                 foreach (var consultant in consultantsList)
                 {
                     consultants.Add(consultant.ConsultantId, string.Join(' ', consultant.Name, consultant.Surname));

@@ -53,7 +53,7 @@ $(document).ready(function () {
             $(element).next("span").addClass("glyphicon-ok").removeClass("glyphicon-remove");
         },
 
-        // Если форма добавления магазина валидна, вызывается функцию добавления магазина
+        // Если форма добавления магазина валидна, вызывается функция добавления магазина
         submitHandler: async function (form) {
             const response = await fetch("api/shops/", {
                 method: "POST",
@@ -64,9 +64,11 @@ $(document).ready(function () {
                 }),
             });
             if (response.ok === true) {
+                let data = response.json();
                 alert("Магазин добавлен!");
                 $('#addShopModal').modal('hide');
-                getList();
+                $('.tbody').append(rows(data));
+   
             }
             else {
                 alert("Ошибка добавления");
