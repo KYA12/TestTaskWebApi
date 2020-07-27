@@ -8,7 +8,6 @@ namespace TestAppWebApi.Models
     {
         public ShopDataBaseContext()
         {
-
         }
 
         public ShopDataBaseContext(DbContextOptions<ShopDataBaseContext> options)
@@ -18,6 +17,10 @@ namespace TestAppWebApi.Models
 
         public virtual DbSet<Consultant> Consultant { get; set; }
         public virtual DbSet<Shop> Shop { get; set; }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

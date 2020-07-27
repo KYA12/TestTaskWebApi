@@ -58,34 +58,6 @@ namespace TestAppWebApi.Controllers
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
         }
 
-        // GET
-        // api/consultants/
-        /// <summary>
-        /// Get avaible shops and consultants
-        /// </summary>
-        /// <param name="get">Get model</param>
-        /// <returns>A response with Ok</returns>
-        /// <response code="200">Returns response with avaible shops and consultants</response>
-        /// <response code="404">If shop is not exists</response>
-        /// <response code="500">If there was an internal server error</response>
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(500)]
-        [HttpGet]
-        public async Task<ActionResult> GetShopsConsultants()
-        {
-            logger.LogInformation("Method ConsultantsConstroller/GetShopsConsultants is called ");
-            var list = await service.GetShopsConsultants();
-            if (list != null)
-            {
-                logger.LogInformation("Result is Ok(200)");
-                return Ok(list);
-            }
-
-            logger.LogInformation("Result is NotFound(404)");
-            return NotFound();
-        }
-
         // POST
         // api/consultants/
         /// <summary>

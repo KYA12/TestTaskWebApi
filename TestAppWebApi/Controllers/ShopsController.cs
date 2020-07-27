@@ -40,7 +40,7 @@ namespace TestAppWebApi.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult> GetShops()
+        public async Task<IActionResult> GetShops()
         {
             logger.LogInformation("Method ShopsController/GetShops is called ");
             var results = await service.GetListShops();
@@ -50,7 +50,8 @@ namespace TestAppWebApi.Controllers
                 return Ok(results);
             }
             logger.LogInformation("Returns result NotFound(404)");
-            return NotFound();
+            return BadRequest();
+   
         }
 
         // POST
@@ -73,11 +74,6 @@ namespace TestAppWebApi.Controllers
         {
             logger.LogInformation("Method Home/AddShop is called ");
             
-            if (await service.CheckShopName(model.ShopName))
-            {
-                ModelState.AddModelError("ShopName", "Некорректное название");
-            }
-
             if (!ModelState.IsValid)
             {
                 logger.LogInformation("Result is BadRequest(400): {0}", ModelState.Values.ToString());

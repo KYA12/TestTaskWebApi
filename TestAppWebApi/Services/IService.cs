@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using TestAppWebApi.Models;
@@ -9,12 +9,11 @@ namespace TestAppWebApi.Services
 {
     public interface IService
     {
-        Task<List<ShopViewModel>> GetListShops();
+        Task<ConcurrentBag<ShopViewModel>> GetListShops();
         Task<bool> AddShop(AddShopViewModel model);
         Task<bool> AddConsultant(AddConsultantViewModel model);
-        Task<ListShopsConsultants> GetShopsConsultants();
         Task<bool> AppointConsultant(AppointConsultantViewModel model);
-        Task<bool> CheckShopName(string shopName);
-
+        Task<ShopsConsultantsViewModel> GetShopsConsultants();
+        ShopViewModel AddToList(Shop shop);
     }
 }

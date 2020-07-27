@@ -7,6 +7,7 @@ using TestAppWebApi.DataAccess.UnitOfWork;
 using TestAppWebApi.Models;
 using Microsoft.Extensions.Logging;
 using TestAppWebApi.ViewModels;
+using System.Collections.Concurrent;
 
 namespace TestAppWebApi.Services
 {
@@ -14,40 +15,26 @@ namespace TestAppWebApi.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly ILogger logger;
-        public  Service(IUnitOfWork uow, ILogger<Service> _loger)
+        private readonly ShopDataBaseContext shopContext;
+        public  Service(IUnitOfWork uow, ILogger<Service> _loger, ShopDataBaseContext con)
         {
             unitOfWork = uow;
             logger = _loger;
+            shopContext = con;
         }
 
         // Получение списка магазинов с назначенными консультантами 
-        public async Task<List<ShopViewModel>> GetListShops()
+        public async Task<ConcurrentBag<ShopViewModel>> GetListShops()
         {
             try
             {
-                var query = unitOfWork.Shops.GetAll().SelectMany(shop =>
-                   unitOfWork.Consultants.GetAll().Where(consultant => shop.ShopId == consultant.ShopId)
-                   .DefaultIfEmpty(), (shop, consultant) => new
-                   {
-                       Id = shop.ShopId,
-                       ShopName = shop.ShopName,
-                       Address = shop.Address,
-                       FullName = consultant == null ? null : string.Join(' ', consultant.Surname, consultant.Name),
-                       DateHiring = consultant == null ? null: consultant.DateHiring.ToString()
-                   });
-
-                var shops = await query.ToListAsync();
-                var results = shops.GroupBy(item => item.Id).Select(group => group
-                    .OrderBy(item => item.Id).Aggregate(new ShopViewModel(), (result, item) =>
-                    {
-                        result.Id = item.Id;
-                        result.ShopName = item.ShopName;
-                        result.Address = item.Address;
-                        result.FullNames.Add(item.FullName);
-                        result.Dates.Add(item.DateHiring);
-                        return result;
-                    })).ToList();
-                return results;
+                var shopsList = await shopContext.Shop.Include(c => c.Consultant).ToListAsync();
+                ConcurrentBag<ShopViewModel> shopViewModelList = new ConcurrentBag<ShopViewModel>();
+                Parallel.ForEach(shopsList, shop => {
+                    shopViewModelList.Add(AddToList(shop));
+                });
+                return shopViewModelList;
+            
             }
             catch (Exception ex)
             {
@@ -100,59 +87,58 @@ namespace TestAppWebApi.Services
             return false;
         }
 
-        // Проверка названия добавляемого магазина на совпадение с названиями
-        // существующих магазинов
-        public async Task<bool> CheckShopName(string shopName)
-        {
-            var shops = await  unitOfWork.Shops.GetAll().ToListAsync();
-            foreach (var shop in shops) 
-            {
-                if (shopName == shop.ShopName)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         // Получение списка всех магазинов и косультантов
-        public async Task<ListShopsConsultants> GetShopsConsultants()
+        public async Task<ShopsConsultantsViewModel> GetShopsConsultants()
         {
             try
             {
                 var consultantsList = await unitOfWork.Consultants.GetAll().ToListAsync();
-                var shopsList =  unitOfWork.Shops.GetAll().ToList();
-
+                var shopsList = unitOfWork.Shops.GetAll().ToList();
                 Dictionary<int, string> shops = new Dictionary<int, string>();
-
                 Dictionary<int, string> consultants = new Dictionary<int, string>();
+                
                 foreach (var shop in shopsList)
                 {
                     shops.Add(shop.ShopId, shop.ShopName);
                 }
-                
+
                 foreach (var consultant in consultantsList)
                 {
                     consultants.Add(consultant.ConsultantId, string.Join(' ', consultant.Name, consultant.Surname));
                 }
 
-                ListShopsConsultants list = new ListShopsConsultants()
+                ShopsConsultantsViewModel list = new ShopsConsultantsViewModel()
                 {
                     Shops = shops,
                     Consultants = consultants
                 };
+                
                 return list;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError("Error in Consultants/GetShopsConsultants: {0}", ex.Message);
             }
+
             return null;
         }
 
-        // Назначение консультанта в магазин
-        public async Task<bool> AppointConsultant(AppointConsultantViewModel model)
+    public ShopViewModel AddToList(Shop shop)
+    {
+        ShopViewModel model = new ShopViewModel()
         {
+            ShopId = shop.ShopId,
+            ShopName = shop.ShopName,
+            Address = shop.Address,
+            FullNameList = shop.Consultant.Select(c => c.Name + ' ' + c.Surname).ToList(),
+            DateList = shop.Consultant.Select(c => c.DateHiring.ToString()).ToList()
+        };
+        return model;
+    }
+
+    // Назначение консультанта в магазин
+    public async Task<bool> AppointConsultant(AppointConsultantViewModel model)
+    {
             try
             {
                 var shop = unitOfWork.Shops.GetAll().FirstOrDefault(s => s.ShopId == Convert.ToInt32(model.ShopId));
